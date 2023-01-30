@@ -9,6 +9,11 @@ original code: https://github.com/NVlabs/ssn_superpixels
 - matplotlib
 
 # Usage
+## Installation
+```
+python setup.py install
+```
+
 ## inference
 SSN_pix
 ```

@@ -1,14 +1,16 @@
 import torch
-from torch.utils.cpp_extension import load_inline
-from .pair_wise_distance_cuda_source import source
 
-
-print("compile cuda source of 'pair_wise_distance' function...")
-print("NOTE: if you avoid this process, you make .cu file and compile it following https://pytorch.org/tutorials/advanced/cpp_extension.html")
-pair_wise_distance_cuda = load_inline(
-    "pair_wise_distance", cpp_sources="", cuda_sources=source
-)
-print("done")
+try:
+    import pair_wise_distance as pair_wise_distance_cuda
+except:
+    from torch.utils.cpp_extension import load_inline
+    from .pair_wise_distance_cuda_source import source
+    print("compile cuda source of 'pair_wise_distance' function...")
+    print("NOTE: if you avoid this process, you make .cu file and compile it following https://pytorch.org/tutorials/advanced/cpp_extension.html")
+    pair_wise_distance_cuda = load_inline(
+        "pair_wise_distance", cpp_sources="", cuda_sources=source
+    )
+    print("done")
 
 
 class PairwiseDistFunction(torch.autograd.Function):
